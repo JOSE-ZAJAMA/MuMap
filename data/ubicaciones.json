@@ -1,0 +1,9 @@
+[
+    {
+      "id": 1,
+      "nombre": "Lugar de prueba",
+      "direccion": "Dirección de prueba",
+      "coordenadas": [40.7128, -74.0060]
+    }
+  ]
+  
