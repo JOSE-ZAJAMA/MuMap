@@ -5,6 +5,9 @@ import tkinter_mapview as mapview
 from Entidades.customstyle import CustomStyle
 from Entidades.usuarios import Usuario
 from Entidades.eventos import Evento
+from Entidades.rutavisita import RutaVisita
+from Entidades.review import Review
+from Entidades.artistas import Artista
 
 class MuMap(tk.Tk):
     def __init__(self):
@@ -23,6 +26,8 @@ class MuMap(tk.Tk):
         historial_btn.pack()
 
         self.cargar_eventos()
+        self.cargar_reviews()
+        self.cargar_artistas()
 
     def cargar_eventos(self):
         try:
@@ -35,6 +40,35 @@ class MuMap(tk.Tk):
         # Aquí puedes hacer algo con los eventos cargados, como mostrarlos en la interfaz de usuario
         self.mostrar_indice_eventos()
 
+    def cargar_reviews(self):
+        try:
+            with open("review.json", "r") as file:
+                reviews_data = json.load(file)
+                self.reviews = [Review(
+                    r["id"],
+                    r["id_evento"],
+                    r["id_usuario"],
+                    r["calificacion"],
+                    r["comentario"],
+                    r["animo"]
+                ) for r in reviews_data]
+        except FileNotFoundError:
+            self.reviews = []
+
+    def cargar_artistas(self):
+        try:
+            with open("artistas.json", "r") as file:
+                artistas_data = json.load(file)
+                self.artistas = [Artista(
+                    a["id"],
+                    a["nombre"],
+                    a["genero"],
+                    a["imagen"]
+                ) for a in artistas_data]
+        except FileNotFoundError:
+            self.artistas = []
+                
+    
     def guardar_eventos(self, eventos):
         eventos_data = [evento.to_json() for evento in eventos]
         with open("data/eventos.json", "w") as file:
@@ -47,6 +81,12 @@ class MuMap(tk.Tk):
 
             # Al hacer clic en el evento, mostrar detalles completos
             evento_label.bind("<Button-1>", lambda event, e=evento: self.mostrar_detalles_evento(e))
+
+            # Mostrar las reviews asociadas al evento
+            reviews = [review for review in self.reviews if review.id_evento == evento.id]
+            for review in reviews:
+                review_label = ttk.Label(self, text=f"Review: {review.comentario}")
+                review_label.pack()
 
     def mostrar_detalles_evento(self, evento):
         details_window = tk.Toplevel(self)
@@ -112,5 +152,17 @@ class MuMap(tk.Tk):
 if __name__ == "__main__":
     usuario = Usuario(1, "John", "Doe")
     print(usuario)
+
+    # Crear una instancia de Review
+    review = Review(1, 1, 1, 4.5, "¡Excelente evento!", "Feliz")
+
+    # Acceder a los atributos de la instancia de Review
+    print(review.id)  # Imprime el ID de la review
+    print(review.id_evento)  # Imprime el ID del evento asociado a la review
+    print(review.id_usuario)  # Imprime el ID del usuario que hizo la review
+    print(review.calificacion)  # Imprime la calificación asignada a la review
+    print(review.comentario)  # Imprime el comentario de la review
+    print(review.animo)  # Imprime el estado de ánimo asociado a la review
+
     app = MuMap()
     app.mainloop()
