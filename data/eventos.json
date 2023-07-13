@@ -1,13 +1,14 @@
 [
     {
       "id": 1,
-      "nombre": "Concierto de prueba",
-      "artista": "Artista de prueba",
-      "genero": "Género de prueba",
-      "id_ubicacion": 1,
-      "hora_inicio": "2023-07-04T09:00:00",
-      "hora_fin": "2023-07-04T11:00:00",
-      "descripcion": "Descripción del evento de prueba",
+      "estadio": "Estadio Delmi",
+      "artista": "Bizarrap",
+      "genero": "Trap",
+      "ubicacion": "Salta",
+      "fecha": "2023-08-02",
+      "horaInicio": "19:00",
+      "horaFin": "22:00",
+      "descripcion": "El artista del momento llega a Salta",
       "imagen": "https://ejemplo.com/imagen.jpg"
     }
   ]
