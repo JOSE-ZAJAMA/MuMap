@@ -4,8 +4,9 @@ nombre (str): El nombre del usuario.
 apellido (str): El apellido del usuario.
 historial_eventos (List[int]): Una lista de IDs de 
 eventos a los que ha asistido el usuario."""
+
 class Usuario:
-    def __init__(self,id,nombre,apellido,historial_eventos = None):
+    def __init__(self, id, nombre, apellido, historial_eventos=None):
         self.id = id
         self.nombre = nombre
         self.apellido = apellido
@@ -19,10 +20,12 @@ class Usuario:
     
     def to_json(self):
         return {
-            "id":self.id,
-            "apellido" : self.apellido
+            "id": self.id,
+            "nombre": self.nombre,
+            "apellido": self.apellido,
+            "historial_eventos": self.historial_eventos
         }
         
     @classmethod
-    def from_json(self,data):
-        return "objeto usuario"
+    def from_json(cls, data):
+        return cls(data["id"], data["nombre"], data["apellido"], data["historial_eventos"])
