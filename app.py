@@ -2,8 +2,9 @@ import tkinter as tk
 from tkinter import ttk
 import json
 import tkinter_mapview as mapview
-from customstyle import CustomStyle
-from usuarios import Usuario
+from Entidades.customstyle import CustomStyle
+from Entidades.usuarios import Usuario
+from Entidades.eventos import Evento
 
 class MuMap(tk.Tk):
     def __init__(self):
