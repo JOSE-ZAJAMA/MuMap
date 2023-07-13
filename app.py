@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import json
 import tkinter_mapview as mapview
+from customstyle import CustomStyle
 
 class MuMap(tk.Tk):
     def __init__(self):
