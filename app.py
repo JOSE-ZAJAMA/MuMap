@@ -3,6 +3,7 @@ from tkinter import ttk
 import json
 import tkinter_mapview as mapview
 from customstyle import CustomStyle
+from usuarios import Usuario
 
 class MuMap(tk.Tk):
     def __init__(self):
@@ -25,7 +26,8 @@ class MuMap(tk.Tk):
     def cargar_eventos(self):
         try:
             with open("data/eventos.json", "r") as file:
-                self.eventos = json.load(file)
+                eventos_data = json.load(file)
+                self.eventos = [Evento.from_json(evento) for evento in eventos_data]
         except FileNotFoundError:
             self.eventos = []
 
@@ -33,12 +35,13 @@ class MuMap(tk.Tk):
         self.mostrar_indice_eventos()
 
     def guardar_eventos(self, eventos):
+        eventos_data = [evento.to_json() for evento in eventos]
         with open("data/eventos.json", "w") as file:
-            json.dump(eventos, file, indent=4)
+            json.dump(eventos_data, file, indent=4)
 
     def mostrar_indice_eventos(self):
         for evento in self.eventos:
-            evento_label = ttk.Label(self, text=evento["nombre"], cursor="hand2")
+            evento_label = ttk.Label(self, text=evento.nombre, cursor="hand2")
             evento_label.pack()
 
             # Al hacer clic en el evento, mostrar detalles completos
@@ -50,13 +53,13 @@ class MuMap(tk.Tk):
         details_window.geometry("400x300")
 
         # Mostrar detalles completos del evento, como artista, género, ubicación, etc.
-        evento_label = ttk.Label(details_window, text=f"Artista: {evento['artista']}")
+        evento_label = ttk.Label(details_window, text=f"Artista: {evento.artista}")
         evento_label.pack()
 
         # Agrega más etiquetas para otros detalles del evento
 
         # Mostrar imagen del evento
-        imagen_url = evento['imagen']
+        imagen_url = evento.imagen
         imagen_label = ttk.Label(details_window)
         imagen_label.pack()
 
@@ -83,7 +86,7 @@ class MuMap(tk.Tk):
 
         # Aquí debes implementar tu lógica de filtrado, por ejemplo:
         for evento in self.eventos:
-            if evento["genero"] == "Rock":
+            if evento.genero == "Rock":
                 eventos_filtrados.append(evento)
 
         return eventos_filtrados
@@ -91,7 +94,7 @@ class MuMap(tk.Tk):
     def ordenar_eventos(self):
         # Lógica para ordenar los eventos según el criterio seleccionado por el usuario
         # Puedes utilizar el método sort() o sorted() con una función de comparación personalizada
-        eventos_ordenados = sorted(self.eventos, key=lambda e: e['nombre'])
+        eventos_ordenados = sorted(self.eventos, key=lambda e: e.nombre)
         return eventos_ordenados
 
     def mostrar_historial_eventos(self):
@@ -106,5 +109,7 @@ class MuMap(tk.Tk):
 
 
 if __name__ == "__main__":
+    usuario = Usuario(1, "John", "Doe")
+    print(usuario)
     app = MuMap()
     app.mainloop()
