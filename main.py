@@ -2,7 +2,7 @@ import tkinter as tk
 import customtkinter
 import json
 
-# Definir los colores personalizados
+#Colores personalizados
 purple_dark = "#2F242C"
 gray_light = "#E5E5E5"
 yellow = "#E6D884"
@@ -10,7 +10,7 @@ green_light = "#A1A892"
 
 eventos_widgets = []  # Widgets para los eventos actuales
 
-# Definir la función mostrar_indice_eventos
+# Función mostrar_indice_eventos
 def mostrar_indice_eventos():
     for widget in eventos_widgets:
         widget.destroy()
@@ -74,12 +74,12 @@ def button_function(section):
     if section == "indice_eventos":
         mostrar_indice_eventos()
 
-# Crear la ventana principal de la aplicación
+# Dimensiones de la ventana principal de la aplicación
 app = tk.Tk()
 app.geometry("720x480")
 app.title("♫ TITULO DE LA APP ♫")
 
-# Crear los widgets de la interfaz de usuario
+# Widgets para la interfaz de usuario
 welcome_label = tk.Label(app, text="Bienvenido a NOMBRE DE LA APP", font=("Arial", 24), fg=purple_dark)
 welcome_label.place(relx=0.5, rely=0.1, anchor=tk.CENTER)
 
@@ -90,5 +90,5 @@ button2.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 button3 = tk.Button(app, text="Historial de Eventos", command=lambda: button_function("historial_eventos"), bg=yellow, fg=purple_dark)
 button3.place(relx=0.5, rely=0.6, anchor=tk.CENTER)
 
-# Iniciar el bucle principal de la aplicación
+# Inicia el bucle principal de la aplicación
 app.mainloop()
