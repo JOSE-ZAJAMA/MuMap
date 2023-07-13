@@ -3,13 +3,13 @@
       "id": 1,
       "nombre": "Artista 1",
       "genero": "Género 1",
-      "imagen": "https://example.com/imagen_artista1.jpg"
+      "imagen": "https://sitio.com/imagen_artista1.jpg"
     },
     {
       "id": 2,
       "nombre": "Artista 2",
       "genero": "Género 2",
-      "imagen": "https://example.com/imagen_artista2.jpg"
+      "imagen": "https://sitio.com/imagen_artista2.jpg"
     }
   ]
   
